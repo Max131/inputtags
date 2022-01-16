@@ -1,0 +1,1 @@
+# Input tags JS component
