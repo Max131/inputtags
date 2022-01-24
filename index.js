@@ -1,6 +1,6 @@
 'use strict';
 /*
- * Future features: initial data-tags, data-popup-list
+ * Future features: initial data-tags, data-popup-list, placeholder
  */
 class inputTags {
   constructor({el = '.input-tags', isShowLists = true}) {
