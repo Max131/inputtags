@@ -3,17 +3,17 @@
  * Future features: initial data-tags, data-popup-list, placeholder
  */
 class inputTags {
-  constructor({el = '.input-tags', isShowLists = true}) {
+  constructor({el = '.input-tags', showList = true, placeholder = '', tagsList = [], initialTags = ''}) {
     this.el = document.querySelector(el);
-    this.isShowLists = isShowLists;
+    this.showList = showList;
     this.tags = [...this.el.querySelectorAll('.input-tags__tag')];
     this.input = this.el.querySelector('input');
     this.list = this.el.querySelector('.input-tags__list');
     this.listItems = [...this.list.querySelectorAll('li')];
     console.info('Initialized');
-    
+
     // Show popup list?
-    if (isShowLists) {
+    if (showList) {
 
       // Show tags list on input
       this.input.addEventListener('input', () => {
@@ -71,7 +71,7 @@ class inputTags {
 
       // Check selected tag from popup list
       this.list.addEventListener('click', this.#checkListTag);
-      
+
       // Check selected tag from popup list on hit Enter key
       this.list.addEventListener('keyup', e => {
         if (e.key !== 'Enter') return;
@@ -92,8 +92,8 @@ class inputTags {
       this.input.addEventListener('keydown', e => {
         const isBackspace = e.key === 'Backspace';
         if (!isBackspace) return;
-        if (this.input.value.length === 0 && this.tags.length > 0) 
-        this.#removeTag(this.tags[this.tags.length - 1]);
+        if (this.input.value.length === 0 && this.tags.length > 0)
+          this.#removeTag(this.tags[this.tags.length - 1]);
       })
     }
 
@@ -102,9 +102,9 @@ class inputTags {
       if (!e.target.matches('.input-tags__tag')) return;
       this.#removeTag(e.target);
     })
-    
-  }
 
+  }
+  //Methods
   /*
    * Add new tag
    */
@@ -115,8 +115,8 @@ class inputTags {
     this.tags = [...this.tags, tag];
     this.input.insertAdjacentElement('beforebegin', tag);
     this.list.classList.remove('active');
-    this.el.dispatchEvent(new CustomEvent('change', { detail: {tag: textTag}}));
-    this.el.dispatchEvent(new CustomEvent('tagadded', { detail: {tag: textTag}}));
+    this.el.dispatchEvent(new CustomEvent('change', {detail: {tag: textTag}}));
+    this.el.dispatchEvent(new CustomEvent('tagadded', {detail: {tag: textTag}}));
     this.list.innerHTML = '';
     this.listItems.forEach(item => this.list.appendChild(item));
     console.log(this.tags); // debug
@@ -129,8 +129,8 @@ class inputTags {
     if (this.tags.length === 0) return;
     this.tags = this.tags.filter(item => item.textContent !== $tag.textContent);
     $tag.remove();
-    this.el.dispatchEvent(new CustomEvent('change', { detail: {tag: $tag.textContent}}));
-    this.el.dispatchEvent(new CustomEvent('tagremoved', { detail: {tag: $tag.textContent}}));
+    this.el.dispatchEvent(new CustomEvent('change', {detail: {tag: $tag.textContent}}));
+    this.el.dispatchEvent(new CustomEvent('tagremoved', {detail: {tag: $tag.textContent}}));
     console.log(this.tags.map(item => item.textContent)); // debug
   }
 
@@ -165,6 +165,5 @@ class inputTags {
   }
 }
 
-const x = new inputTags({el: '#cSelect'});
 
 

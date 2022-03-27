@@ -2,29 +2,31 @@
 <html>
   <head>
     <title>Input tags</title>
-    <meta name="description" content="Input tags Nodo" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="index.css">
+    <meta name='description' content='Input tags Nodo' />
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='stylesheet' href='index.css'>
   </head>
   <body>
-    <div class="input-tags" id="cSelect">
-      <span class="input-tags__tag">Hello</span>
-      <span class="input-tags__tag">World</span>
-      <input
-        class="input-tags__input"
-        type="text"
-        placeholder="Tags"
-        autofocus
-      />
-      <ul class="input-tags__list">
-        <li class="input-tags__item" tabindex="0">Ana</li>
-        <li class="input-tags__item" tabindex="0">Alyona</li>
-        <li class="input-tags__item" tabindex="0">Bet</li>
-        <li class="input-tags__item" tabindex="0">Chuck</li>
-        <li class="input-tags__item" tabindex="0">Dan</li>
+    <div class='input-tags' id='cSelect'>
+      <input class='input-tags__input' type='text' placeholder='Tags' autofocus />
+      <ul class='input-tags__list'>
+        <li class='input-tags__item' tabindex='0'>Ana</li>
+        <li class='input-tags__item' tabindex='0'>Alyona</li>
+        <li class='input-tags__item' tabindex='0'>Bet</li>
+        <li class='input-tags__item' tabindex='0'>Chuck</li>
+        <li class='input-tags__item' tabindex='0'>Dan</li>
       </ul>
     </div>
-    <script src="index.js"></script>
+    <script src='index.js'></script>
+    <script>
+      const myTags = new inputTags({
+                            el: '#cSelect',
+                            showList: true,
+                            placeholder: 'New tags',
+                            tagsList: ['Ana', 'Alyona', 'Bet', 'Chuck', 'Dan'],
+                            initialTags: ['Hello', 'World']
+                          });
+    </script>
   </body>
 </html>
