@@ -3,14 +3,39 @@
  * Future features: initial data-tags, data-popup-list, placeholder
  */
 class inputTags {
-  constructor({el = '.input-tags', showList = true, placeholder = '', tagsList = [], initialTags = ''}) {
+  constructor({el = '.input-tags', showList = true, placeholder = '', tagsList = [], initialTags = []}) {
     this.el = document.querySelector(el);
     this.showList = showList;
-    this.tags = [...this.el.querySelectorAll('.input-tags__tag')];
+    //this.tags = [...this.el.querySelectorAll('.input-tags__tag')];
+    this.tags = [];
+    //Input
+    const inputTags = document.createElement('INPUT');
+    inputTags.setAttribute('class', 'input-tags__input');
+    inputTags.setAttribute('placeholder', placeholder);
+    inputTags.setAttribute('autofocus', true);
+    //UL
+    const ulItems = document.createElement('UL');
+    ulItems.setAttribute('class', 'input-tags__list');
+
+    //Add Elements
+    this.el.appendChild(inputTags);
+    this.el.appendChild(ulItems);
+
     this.input = this.el.querySelector('input');
     this.list = this.el.querySelector('.input-tags__list');
-    this.listItems = [...this.list.querySelectorAll('li')];
     console.info('Initialized');
+
+    //Add list items
+    this.listItems = tagsList.map(tag => {
+      const listElement = document.createElement('LI');
+      listElement.setAttribute('class', 'input-tags__item');
+      listElement.setAttribute('tabindex', '0');
+      listElement.textContent = tag;
+      return listElement;
+    })
+
+    //Add initial tags
+    initialTags.forEach(tag => this.#addTag(tag));
 
     // Show popup list?
     if (showList) {
@@ -54,7 +79,7 @@ class inputTags {
         const showedMenu = e.key === 'ArrowDown' && this.list.classList.contains('active');
         if (!showedMenu) return;
         if (document.activeElement.tagName !== 'LI') {
-          this.list.childNodes[0].focus();
+          this.list?.childNodes[0]?.focus();
           return;
         }
         document.activeElement.nextSibling?.focus();
@@ -109,7 +134,7 @@ class inputTags {
   /*
    * Init 
    */ 
-  static init({el = '.input-tags', showList = true, placeholder = '', tagsList = [], initialTags = ''}) {
+  static init({el = '.input-tags', showList = true, placeholder = '', tagsList = [], initialTags = []}) {
     return new this({el, showList, placeholder, tagsList, initialTags})
   }
 
