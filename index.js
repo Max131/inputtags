@@ -104,7 +104,15 @@ class inputTags {
     })
 
   }
+
   //Methods
+  /*
+   * Init 
+   */ 
+  static init({el = '.input-tags', showList = true, placeholder = '', tagsList = [], initialTags = ''}) {
+    return new this({el, showList, placeholder, tagsList, initialTags})
+  }
+
   /*
    * Add new tag
    */
